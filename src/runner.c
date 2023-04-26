@@ -118,7 +118,7 @@ static int LoadTaskHostLibrary(void **library_handle,
   snprintf(library_path, sizeof(library_path), "%s/task_host.so",
     dirname(executable_path_copy));
   free(executable_path_copy);
-  handle = dlopen(library_path, RTLD_NOW);
+  handle = dlopen(library_path, RTLD_NOW|RTLD_GLOBAL);
   if (!handle) {
     printf("Couldn't load task host library %s: %s\n", library_path,
       dlerror());
@@ -152,6 +152,7 @@ int main(int argc, char **argv) {
     printf("Usage: %s <path to JSON config file>\n", argv[0]);
     return 1;
   }
+  printf("================== Start loading %s ==================\n", argv[1]);
   // Read the config file and generate a set of initialization parameters. The
   // only meaningful field we set is additional_info.
   config_content = (char *) GetConfigFileContent(argv[1]);

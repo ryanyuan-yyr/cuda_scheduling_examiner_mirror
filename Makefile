@@ -1,15 +1,15 @@
 .PHONY: all clean benchmarks directories
 
 CFLAGS := -Wall -Werror -O3 -g -fPIC
-NVCC ?= /usr/local/cuda-11.4/bin/nvcc
+NVCC ?= nvcc
 
 NVCCFLAGS := -g --ptxas-options=-v --compiler-options="$(CFLAGS)" \
-	--generate-code arch=compute_50,code=[compute_50,sm_50] \
-	--generate-code arch=compute_53,code=[compute_53,sm_53] \
-	--generate-code arch=compute_60,code=[compute_60,sm_60] \
-	--generate-code arch=compute_62,code=[compute_62,sm_62] \
-	--generate-code arch=compute_62,code=[compute_70,sm_70] \
-	--generate-code arch=compute_62,code=[compute_75,sm_75]
+	# --generate-code arch=compute_50,code=[compute_50,sm_50] \
+	# --generate-code arch=compute_53,code=[compute_53,sm_53] \
+	# --generate-code arch=compute_60,code=[compute_60,sm_60] \
+	# --generate-code arch=compute_62,code=[compute_62,sm_62] \
+	# --generate-code arch=compute_62,code=[compute_70,sm_70] \
+	# --generate-code arch=compute_62,code=[compute_75,sm_75]
 
 BENCHMARK_DEPENDENCIES := src/library_interface.h \
 	src/benchmark_gpu_utilities.h obj/benchmark_gpu_utilities.o

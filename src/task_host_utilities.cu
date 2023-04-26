@@ -103,7 +103,7 @@ static void InternalReadGPUNanoseconds(int cuda_device, double *cpu_time,
   cudaFree(device_time);
 }
 
-int GetHostDeviceTimeOffset(int cuda_device, double *host_seconds,
+extern "C" int GetHostDeviceTimeOffset(int cuda_device, double *host_seconds,
   uint64_t *gpu_nanoseconds) {
   uint64_t *shared_gpu_time = NULL;
   double *shared_cpu_time = NULL;
@@ -163,7 +163,7 @@ static int InternalGetMaxResidentThreads(int cuda_device) {
   return warps_per_sm * properties.multiProcessorCount * properties.warpSize;
 }
 
-int GetMaxResidentThreads(int cuda_device) {
+extern "C" int GetMaxResidentThreads(int cuda_device) {
   int to_return, status;
   pid_t pid = -1;
   int *max_thread_count = NULL;
@@ -230,7 +230,7 @@ static double InternalGetGPUTimerScale(int cuda_device) {
   return ((double) nanoseconds_elapsed) / ((double) TIMER_SPIN_DURATION);
 }
 
-double GetGPUTimerScale(int cuda_device) {
+extern "C" double GetGPUTimerScale(int cuda_device) {
   double to_return;
   double *scale = NULL;
   int status;
@@ -265,7 +265,7 @@ double GetGPUTimerScale(int cuda_device) {
   return to_return;
 }
 
-int GetSingleBlockAndGridDimensions(InitializationParameters *params,
+extern "C" int GetSingleBlockAndGridDimensions(InitializationParameters *params,
     int *thread_count, int *block_count) {
   int a, b;
   if ((params->block_dim[1] != 1) || (params->block_dim[2] != 1)) {
@@ -292,7 +292,7 @@ int GetSingleBlockAndGridDimensions(InitializationParameters *params,
   return 1;
 }
 
-int GetSingleBlockDimension(InitializationParameters *params,
+extern "C" int GetSingleBlockDimension(InitializationParameters *params,
     int *thread_count) {
   int x, y, z;
   x = params->block_dim[0];
